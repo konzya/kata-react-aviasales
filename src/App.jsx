@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from './Logo.svg'
+import logo from './logo.svg'
 import FiltersList from './features/filters/FiltersList'
 import SortsList from './features/sorts/SortsList'
 import TicketsList from './features/tickets/TicketsList'
