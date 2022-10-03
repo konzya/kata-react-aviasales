@@ -1,0 +1,66 @@
+@use '../../variablesMixins.scss' as var;
+
+.sort {
+  padding: 14px;
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #4a4a4a;
+  background-color: white;
+  border: 1px solid #dfe5ec;
+  border-right: none;
+  @include var.pointer;
+
+  @media (hover: hover) {
+    &:hover:not(.sort--active) {
+      background-color: var.$colorSemiActive;
+    }
+  }
+
+  &:focus {
+    z-index: 2;
+    outline-color: #69a8cc;
+  }
+
+  &--active {
+    background-color: var.$colorActive;
+    color: white;
+    border: {
+      top: 1px solid #2196f3;
+      bottom: 1px solid #2196f3;
+      left: 1px solid #dfe5ec;
+      right: none;
+    }
+    cursor: default;
+  }
+}
+
+li:first-child > .sort {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+li:last-child > .sort {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-right: 1px solid #dfe5ec;
+}
+
+li:last-child > .sort--active {
+  border: {
+    right: 1px solid #2196f3;
+  }
+}
+
+li:first-child > .sort--active {
+  border: {
+    left: 1px solid #2196f3;
+  }
+}

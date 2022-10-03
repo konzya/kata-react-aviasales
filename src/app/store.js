@@ -1,8 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore } from '@reduxjs/toolkit'
+import filtersReduser from '../features/filters/filtersSlice'
+import ticketsReduser from '../features/tickets/ticketsSlice'
+import sortsReduser from '../features/sorts/sortsSlice'
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    filters: filtersReduser,
+    sorts: sortsReduser,
+    tickets: ticketsReduser,
   },
-});
+})
+
+export default store

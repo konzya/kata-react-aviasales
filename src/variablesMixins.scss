@@ -1,0 +1,6 @@
+@mixin pointer {  
+  cursor: url('./Cursor.svg'), pointer; 
+}
+
+$colorActive : #2196f3;
+$colorSemiActive : #F1FCFF;
