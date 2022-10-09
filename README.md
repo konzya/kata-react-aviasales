@@ -1,1 +1,1 @@
-https://kata-react-aviasales.vercel.app/
+https://kata-react-aviasales-konzya.vercel.app/
