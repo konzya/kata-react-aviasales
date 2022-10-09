@@ -8,6 +8,7 @@ export const TicketsStatusEnum = {
   idle: 'idle',
   fetching: 'fetching',
   done: 'done',
+  offline: 'offline',
 }
 
 const ticketsSlice = createSlice({
@@ -17,19 +18,19 @@ const ticketsSlice = createSlice({
     array: [],
   },
   reducers: {
-    startFetching(state) {
-      state.status = TicketsStatusEnum.fetching
-    },
-    doneFetching(state) {
-      state.status = TicketsStatusEnum.done
+    setFetchStatus(state, action) {
+      state.status = action.payload
     },
     ticketsRecieved(state, action) {
       state.array.push(...action.payload)
     },
+    resetTickets(state) {
+      state.array = []
+    },
   },
 })
 
-export const { startFetching, doneFetching, ticketsRecieved } = ticketsSlice.actions
+export const { setFetchStatus, ticketsRecieved, resetTickets } = ticketsSlice.actions
 
 export const selectAllTickets = (state) => state.tickets.array
 export const selectTicketsStatus = (state) => state.tickets.status
@@ -47,9 +48,10 @@ export default ticketsSlice.reducer
 export const fetchTickets = async (dispatch, getState) => {
   const { status } = getState().tickets
   if (status !== TicketsStatusEnum.idle) return
-  dispatch(startFetching())
+  dispatch(setFetchStatus(TicketsStatusEnum.fetching))
   let searchId = null
   while (!searchId) {
+    if (getState().tickets.status === TicketsStatusEnum.offline) return
     try {
       // eslint-disable-next-line no-await-in-loop
       searchId = await aviasalesApi.getSearchId()
@@ -59,14 +61,15 @@ export const fetchTickets = async (dispatch, getState) => {
   }
   let stop = false
   while (!stop) {
+    if (getState().tickets.status === TicketsStatusEnum.offline) return
     try {
       // eslint-disable-next-line no-await-in-loop
       const response = await aviasalesApi.getTickets(searchId)
       stop = response.stop
       dispatch(ticketsRecieved(response.tickets))
     } catch (e) {
-      console.error(e)
+      console.error(e.stack)
     }
   }
-  dispatch(doneFetching())
+  dispatch(setFetchStatus(TicketsStatusEnum.done))
 }

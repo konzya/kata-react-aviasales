@@ -6,7 +6,7 @@ import styles from './Filter.module.scss'
 
 export default function Filter({ id }) {
   const dispatch = useDispatch()
-  const filter = useSelector((state) => selectFilterById(state, id))
+  const { name, checked } = useSelector((state) => selectFilterById(state, id))
 
   const onCheckboxChange = (e) => {
     dispatch(toggleFilter(id))
@@ -18,11 +18,11 @@ export default function Filter({ id }) {
       <input
         className={styles.filter__checkbox}
         type="checkbox"
-        checked={filter.checked}
+        checked={checked}
         id={id}
         onChange={onCheckboxChange}
       />
-      {filter.name}
+      {name}
     </label>
   )
 }

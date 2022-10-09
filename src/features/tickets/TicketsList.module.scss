@@ -6,6 +6,22 @@
   gap: 20px;
 }
 
+.tickets__error {
+  padding: 14px;
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+  display: flex;  
+  letter-spacing: 0.5px;
+  justify-content: center;
+  text-transform: uppercase;
+  color: black;
+  background-color: red;
+  border-radius: 5px;
+}
+
 .tickets__spinner {
   background-image: url('./Spinner.svg');
   width: 50px;
